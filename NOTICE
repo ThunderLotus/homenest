@@ -1,0 +1,55 @@
+HomeNest
+Copyright (c) 2026-PRESENT HomeNest contributors
+
+=========================================================================
+
+This project is a fork of Mafl (https://github.com/hywax/mafl),
+originally created and maintained by Hywax under the MIT License.
+
+Original project:  Mafl (https://github.com/hywax/mafl)
+Original author:   Hywax
+Original license:  MIT (https://github.com/hywax/mafl/blob/main/LICENSE)
+
+The original copyright notice and license text are preserved in the
+LICENSE file, as required by the MIT License terms.
+
+=========================================================================
+
+Modifications made in this fork:
+
+1. Renamed project from "Mafl" to "HomeNest"
+2. Migrated from Nuxt 3 to Nuxt 4 (Nuxt ^4.5.2, Vite ^8.2.2)
+3. Migrated @nuxtjs/i18n from v8 to v9 (locale files converted from
+   .json to .js to avoid Vite 8 JSON parsing issues)
+4. Added storage abstraction layer (StorageDriver interface) with two
+   implementations:
+   - FilesystemDriver (self-hosted, Nitro useStorage('data'))
+   - VercelKVDriver (serverless, @vercel/kv / Upstash Redis)
+5. Added dedicated stores: ConfigStore, UserStore, PreferencesStore,
+   IconStore — all backed by the StorageDriver abstraction
+6. Replaced TCP ping (@network-utils/tcp-ping, node:net) with HTTP
+   fetch-based probe for Cloudflare Workers compatibility
+7. Replaced scryptSync (node:crypto) with PBKDF2 via Web Crypto API
+   for Cloudflare Workers 10ms CPU limit compliance; legacy scrypt
+   hashes are auto-migrated on next login
+8. Added Nitro routeRules: SWR caching for API endpoints, prerender
+   for /login page
+9. Added global TTL config cache (5s) in DefaultConfigStore for
+   serverless environments where useStorage('main') is not persistent
+10. Added session secret process-level caching to reduce KV reads
+11. Optimized config version polling interval from 10s to 30s
+12. Added pauseWhenInactive for service data polling (background tabs
+    no longer generate API calls)
+13. WebSocket auto-disabled when using Vercel KV storage driver
+14. Added WYSIWYG visual editor (in-page config editing, drag-and-drop,
+    property panel, multi-config routing)
+15. Added user authentication system (PBKDF2 password hashing, h3
+    sessions, admin/user roles, per-user config isolation)
+16. Added DiceBear avatar library (27 avatar styles)
+17. Added icon picker with Lucide and Homarr icon set support
+18. Added favicon auto-detection for service cards
+19. Added theme and language switchers in UI
+20. Added site import/export functionality
+
+For third-party software, assets, and their licenses, see
+THIRD_PARTY_NOTICES file.

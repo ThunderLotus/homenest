@@ -1,0 +1,8 @@
+services:
+  homenest:
+    image: thunderlotus/homenest:latest
+    restart: unless-stopped
+    ports:
+      - '13008:3000'
+    volumes:
+      - ./data:/app/data

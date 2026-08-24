@@ -1,0 +1,27 @@
+{
+  "version": "2",
+  "templates": [
+    {
+      "categories": [
+        "Dashboard"
+      ],
+      "description": "HomeNest is a self-hosted, minimalistic homepage and dashboard. Organize your services, monitor their status, and access everything from one place.",
+      "image": "ThunderLotus/homenest:latest",
+      "logo": "https://raw.githubusercontent.com/ThunderLotus/homenest/main/docs/public/logotype.svg",
+      "name": "HomeNest",
+      "platform": "linux",
+      "ports": [
+        "3000:3000/tcp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "HomeNest",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/HomeNest/config.yml",
+          "container": "/app/data/config.yml"
+        }
+      ]
+    }
+  ]
+}

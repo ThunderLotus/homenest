@@ -1,0 +1,609 @@
+title: 家巢
+lang: en
+baseLang: zh
+theme: bluer
+checkUpdates: false
+layout:
+  grid:
+    small: 2
+    medium: 2
+    large: 3
+    xlarge: 4
+behaviour:
+  target: _blank
+tags: []
+services:
+  智能家居:
+    - id: e5bedf32-db08-40dd-a550-b85f3c412817
+      title: 家居控制
+      link: "#"
+      target: _blank
+      icon:
+        name: vscode-icons:file-type-homeassistant
+      tags: []
+      options: {}
+    - id: e70f8298-a7ee-458e-8810-41ff4fea40f1
+      title: 智能音箱
+      link: "#"
+      target: _blank
+      icon:
+        name: lucide:list-music
+        strokeWidth: 2
+        size: 24
+      tags: []
+      options: {}
+  开发部署:
+    - id: 72139632-e31e-4f80-8f30-50fadfe220c2
+      title: Vercel
+      description: Vercel 提供开发者工具和云基础设施，帮助构建、扩展和保护更快、更个性化的网络应用。
+      link: https://vercel.com/
+      target: _blank
+      icon:
+        name: skill-icons:vercel-light
+      tags: []
+    - id: 13a83074-87b5-462d-9c57-d289dd5539ed
+      title: Cloudflare
+      description: Cloudflare以向客户提供基于反向代理的内容分发网络及分布式域名解析服务为主要业务。
+      link: https://dash.cloudflare.com/
+      target: _blank
+      icon:
+        name: thesvg-color:cloudflare
+      tags: []
+  开发工具:
+    - id: bb64f52f-ce64-4384-8b25-b8afaea7146a
+      title: Github
+      description: Github
+      link: https://www.github.com/
+      target: _blank
+      icon:
+        name: simple-icons:github
+      tags: []
+    - id: 70b90f58-6311-4b93-b89a-03ea79a0dad3
+      title: Microsoft 开发者
+      description: edge 插件上传地址
+      link: https://partner.microsoft.com/zh-cn/dashboard/microsoftedge/overview
+      target: _blank
+      icon:
+        name: selfhst:microsoft
+      tags: []
+    - id: af81240d-a006-40e3-aefa-cffdd0dcd211
+      title: SQL格式化
+      description: 在线美化SQL语句的工具，格式化方便阅读
+      link: https://www.dpriver.com/pp/sqlformat.htm
+      target: _blank
+      icon:
+        name: hugeicons:sql
+      tags: []
+  办公工具:
+    - id: cd5f08da-f38e-4e17-bfa7-439e73de200c
+      title: Excalidraw
+      description: Excalidraw是免费的在线协作画图工具。手写风格的草图非常好看；漂亮的图库。
+      link: https://excalidraw.com/
+      target: _blank
+      icon:
+        name: thesvg-color:excalidraw
+      tags: []
+    - id: 7a98fc35-5250-4baa-9b4c-ccc35211e997
+      title: draw.io
+      description: 可以绘制架构图、流程图，软件周期内的其它设计图。为团队绘制安全第一的图表。将您的存储带到我们的在线工具，或使用桌面应用程序在本地保存。
+      link: https://www.drawio.com/
+      target: _blank
+      icon:
+        url: /api/icons/30f72f3e1890278b.ico
+        name: vscode-icons:file-type-drawio
+      tags: []
+i18n:
+  groups:
+    常用推荐:
+      en: Featured
+    媒体资讯:
+      en: News & Media
+    AI工具包:
+      en: AI Tools
+    开发者工具包:
+      en: Developer Tools
+    投资者工具包:
+      en: Investment Tools
+    自媒体工具包:
+      en: Creator Tools
+    常用工具:
+      en: Utilities
+    素材资源:
+      en: Design Assets
+    开源项目:
+      en: Open Source
+    开发部署:
+      en: Deployment
+    New Group:
+      en: Office
+    网盘:
+      en: NetDisk
+    New Group 2:
+      en: Design
+    New Group 3:
+      en: DevTools
+    办公工具:
+      en: OfficeTools
+    开发工具:
+      en: DevTools
+    设计:
+      en: Design
+    智能家居:
+      en: MyHome
+  services:
+    72139632-e31e-4f80-8f30-50fadfe220c2:
+      en:
+        title: Vercel
+        description: Vercel provides developer tools and cloud infrastructure to help
+          build, scale, and protect faster, more personalized web applications.
+    13a83074-87b5-462d-9c57-d289dd5539ed:
+      en:
+        title: Cloudflare
+        description: Cloudflare primarily provides CDN and distributed DNS services
+          based on reverse proxy.
+    0d472d0a-c334-4431-b038-dd7c584b855a:
+      en:
+        title: Google Analytics
+        description: Web analytics service offered by Google that tracks and reports
+          website traffic.
+    b2e9adbf-4bde-454f-9015-a94d8d0faa98:
+      en:
+        title: Google AdSense
+        description: Google AdSense advertising service.
+    c38b554c-5ffd-405c-bb11-2193eb4eecf4:
+      en:
+        title: Producthunt
+        description: Discover fresh and interesting products
+    1665892c-716d-4350-b4fb-a6ca91f27046:
+      en:
+        title: Leonardo.AI
+        description: Leonardo.AI is an AI drawing community and tool. Based on Stable
+          Diffusion, it deeply integrates various plugins for powerful image
+          generation and creation.
+    59a0975e-17b3-413d-9623-dbaa8caf3ac5:
+      en:
+        title: Tensor.art
+        description: Tensor.art is a free online image generation and model hosting
+          platform.
+    ec8329d4-d2d2-4d0c-9ba1-071ac002fa7f:
+      en:
+        title: Screenshot Beautifier
+        description: Beautify screenshots with device frames for browser, iPhone, iPad,
+          MacBook, Apple Watch.
+    f8ae3e33-7b9b-41fb-8848-7ee33428703c:
+      en:
+        title: Google Drive
+        description: Cloud storage and file sharing by Google.
+    5a1a1c96-30b4-415b-bda9-1827acd8423a:
+      en:
+        title: Chrome Webstore Devconsole
+        description: Chrome Developer
+    8fc09c4f-3fd0-4571-a0a6-1a87595b69fd:
+      en:
+        title: NewKit - Online Toolkit
+        description: Online productivity tools collection.
+    cbddb363-0358-4351-8a79-baeb074580c8:
+      en:
+        title: Google Trends
+    70b90f58-6311-4b93-b89a-03ea79a0dad3:
+      en:
+        title: Microsoft Developer
+        description: Edge extension upload address
+    b9ee598d-33fe-418d-b0e1-46504ebcf4ed:
+      en:
+        title: Hacker News
+        description: Hacker News is a social news website about computer hackers and
+          startups, created by Paul Graham's startup incubator Y Combinator.
+    89fc87fb-6e76-47c5-9e63-478a2d4617dd:
+      en:
+        title: Reddit
+        description: Reddit has over 100,000 subreddit communities where millions of
+          users gather to discuss topics they care about.
+    74d3b19a-1b24-4a59-bfed-c0ab8f3aeac4:
+      en:
+        title: ChatGPT
+        description: AI chatbot developed by OpenAI.
+    0fd57799-3d21-44e2-958c-35d309401450:
+      en:
+        title: Claude
+        description: AI assistant developed by Anthropic, excels at analysis and
+          creative writing.
+    2d8c69d5-665e-4524-88df-0c19505c494d:
+      en:
+        title: Gemini
+        description: Generative AI chatbot developed by Google, based on the Gemini
+          series of large language models.
+    1c73fdda-c7d9-4456-a40d-cd332c877019:
+      en:
+        title: Poe
+        description: Poe is an app by Quora that integrates multiple generative AIs,
+          allowing users to easily switch between and compare mainstream LLMs.
+    bbea594f-9c61-4c75-a7f9-27fc55041c36:
+      en:
+        title: Perplexity
+        description: An AI assistant designed to provide information, answer questions,
+          and help with various tasks.
+    ffd8f92b-193e-4245-af63-acb068748188:
+      en:
+        title: Napkin
+        description: Napkin turns your text into visuals so sharing your ideas is quick
+          and effective.
+    2ef64b23-0de1-4e58-affc-2d733643d6a0:
+      en:
+        title: Gamma
+        description: AI-powered presentation generation tool
+    0fa024f5-1e07-4c4f-a61d-318a96863650:
+      en:
+        title: Google NotebookLM
+        description: "NotebookLM: a powerful AI research tool and thinking partner that
+          helps analyze sources, clarify complex materials, and transform
+          content."
+    b6d3c275-e779-496d-bb84-9240733bcb80:
+      en:
+        title: MCP Server Directory
+        description: Various MCP Servers
+    f6482311-6ad4-4688-ac57-77440bdc484b:
+      en:
+        title: Nano Banana
+        description: In the AI image generation field, Nano Banana (now officially
+          Gemini 2.5 Flash Image) gained attention through standout performance
+          on the LM Arena platform.
+    5f7accee-8ecc-438f-ac6b-11e2d51b7a2c:
+      en:
+        title: Tencent EdgeOne
+        description: Tencent EdgeOne, Asia's leading CDN, leverages Tencent's advanced
+          edge nodes for acceleration, security, serverless, and video
+          solutions.
+    7a98fc35-5250-4baa-9b4c-ccc35211e997:
+      en:
+        title: draw.io
+        description: Draw architecture diagrams, flowcharts, and other design diagrams.
+          Create security-first diagrams for teams, with online and desktop
+          tools.
+    92a342f5-0b36-47a9-8f31-591552932936:
+      en:
+        title: ProccessOn
+        description: ProcessOn is an excellent online collaborative diagramming tool.
+          Professional and powerful, supporting real-time multi-user
+          collaboration for prototypes, UML, BPMN, network topology, and more.
+    cd5f08da-f38e-4e17-bfa7-439e73de200c:
+      en:
+        title: Excalidraw
+        description: Excalidraw is a free online collaborative drawing tool with
+          beautiful hand-drawn style sketches and a nice library.
+    3a4966bc-f75f-4321-8a21-6b807c185473:
+      en:
+        title: Trae
+        description: Trae by ByteDance, a Cursor competitor. Supports Claude 3.5, free
+          for a limited time. Its Builder combines Cursor's Composer and Agent.
+    e42ff898-1c16-4697-b9b5-21dded9cb7fc:
+      en:
+        title: Codex
+        description: Codex is a series of AI coding tools by OpenAI, helping developers
+          boost productivity through powerful cloud and local coding agents.
+    1e5d0ade-8278-4c7b-a877-ea4c2e8edfa5:
+      en:
+        title: Payload CMS
+        description: Visit payloadcms.com
+    be457370-fdcd-42bf-8320-0ca656ee614f:
+      en:
+        title: BT Panel
+        description: Server management panel.
+    58231a5d-0822-48e0-a065-37f8c53f1dc7:
+      en:
+        title: 1Panel
+        description: 1Panel provides an intuitive web interface to easily manage Linux
+          server applications, websites, files, databases, and LLMs.
+    1213472d-698d-4f53-9f5a-5818729556e4:
+      en:
+        title: Dokploy
+        description: Provides unprecedented simplicity and efficiency for one-stop
+          project, data management, and system monitoring.
+    16706c19-6bda-476f-ab5d-5c4668804a08:
+      en:
+        title: CNINFO
+        description: China Securities Regulatory Commission information disclosure platform.
+    ab9e9901-4332-4643-8111-0839a8418923:
+      en:
+        title: Value Investing Data
+        description: Value investing navigation and data service.
+    1cfbb5e6-770d-49de-b840-6d5bb5e41b04:
+      en:
+        title: Jisilu
+        description: Bond and fund data platform.
+    c25b2e51-e2e9-460e-803a-a248960b5445:
+      en:
+        title: Kancaibao
+        description: Financial report analysis tool.
+    450bcaaa-d9f4-4538-9fe1-7ab4bd5ae2a6:
+      en:
+        title: Jisilu - Live Data
+        description: Real-time bond and fund data.
+    34c48bfd-17d8-453a-83ce-eb9d38f70a46:
+      en:
+        title: Palmmicro
+        description: A-share, commodity, and fund NAV calculation tools
+    5849f23f-f1fd-4053-b9a4-91fd43f84e22:
+      en:
+        title: WeChat Official Account
+        description: WeChat Official Account management platform.
+    b06d0354-a5de-4c97-8ef0-0c390f5efafc:
+      en:
+        title: WeChat Channels
+        description: WeChat Channels creator platform.
+    1e972e9d-d69b-45a8-a8f4-77b14b259402:
+      en:
+        title: Xiaohongshu Creator
+        description: Xiaohongshu (RED) creator center.
+    ba1365af-f73b-48c7-926e-d496d168458a:
+      en:
+        title: NeuraPress Pro Markdown Editor
+        description: NeuraPress is a modern Markdown editor focused on quality content
+          layout. Responsive design with mobile support for efficient creation.
+    756b1144-30a3-4381-80eb-ba2a0e4b9c06:
+      en:
+        title: NeuraPress
+        description: Markdown to WeChat Official Account content tool
+    ec51d6d2-af34-4547-bc25-cb02e7ad4e6c:
+      en:
+        title: WeChat Markdown Editor
+        description: "A minimalist WeChat Markdown editor: supports Markdown syntax,
+          color picker, multi-image upload, one-click download, custom CSS, and
+          one-click reset."
+    4b694708-58df-4f14-aec6-e203fd8e7b7c:
+      en:
+        title: mdnice
+        description: One-click WeChat Official Account style conversion, with
+          Zhiyu/Yuque-specific typography optimization.
+    4dec95f0-9513-4b63-b130-8979a9976083:
+      en:
+        title: MD2Card
+        description: MD2Card is a free Markdown-to-knowledge-card tool. Generate
+          Xiaohongshu-style posters and social media layouts. Supports multiple
+          themes, auto-split long text, and one-click image export.
+    b9e8f1d8-e807-479d-b775-c57b366827cf:
+      en:
+        title: Screenity
+        description: Open-source free Chrome screen recording extension.
+    d848ede3-0b17-4ea2-a540-6d1d91a10d6b:
+      en:
+        title: Cursorful
+        description: Screen recording with auto-zoom. Use the Cursorful browser
+          extension to record beautiful screen recordings with cursor-following
+          zoom, or load your own videos in the editor.
+    5b24f9a8-cdba-400b-8415-533658b62cdc:
+      en:
+        title: Tencent Zhuque AI Detector
+        description: AI-generated text detection by Tencent.
+    0f4314bc-7871-452f-b866-9ee263155c60:
+      en:
+        title: Quaily
+        description: Quaily is a modern, AI-based newsletter service. Supports multiple
+          delivery channels including email, Telegram, and Discord. Integrates
+          well with popular editors like Obsidian and VS Code.
+    ae18b2e1-1ce6-48e6-8033-384a8323cd40:
+      en:
+        title: WeChat Platform
+        description: WeChat Official Account platform.
+    793753bf-6f47-447e-a2e5-3c61fdc4a2ab:
+      en:
+        title: Xiaobaotong
+        description: Newsletter publishing platform.
+    9341e035-7479-4200-9805-cc7eb1e3f927:
+      en:
+        title: Knowledge Planet
+        description: Knowledge sharing community platform.
+    feed1117-f1a5-4013-a95f-6989368b8db5:
+      en:
+        title: TableConvert
+        description: Excel-to-SQL online tool. Convert Excel data to web-friendly
+          formats including HTML, JSON, XML, SQL, and Markdown.
+    c081380c-fec6-44f2-8c27-3de27e587fb6:
+      en:
+        title: JSON Editor Online
+        description: Online JSON editor with formatting, visualization, comparison, and
+          line numbers.
+    af81240d-a006-40e3-aefa-cffdd0dcd211:
+      en:
+        title: SQL Formatter
+        description: Online SQL formatting tool.
+    5e8fd7b2-9d15-4671-bbb4-d43e04295a81:
+      en:
+        title: TinyPNG
+        description: Online image compression tool
+    adacff33-a788-4c41-a52a-c3616632c91b:
+      en:
+        title: Photoshop
+        description: Photoshop needs no introduction
+    683bf0bf-4a0f-48fe-8fe5-b8661f262864:
+      en:
+        title: Affinity Designer
+        description: Professional creative software
+    d88bc08c-80c8-474d-ab55-3303dfe95ee0:
+      en:
+        title: Illustrator
+        description: Vector graphics and illustrations.
+    5cf0c634-5793-479e-9ce2-d616f6a93f6a:
+      en:
+        title: Figma
+        description: Online UI design tool
+    92dfff63-5308-4162-9b26-f81b22251dc6:
+      en:
+        title: Adobe After Effects CC
+        description: Cinematic visual effects and motion graphics.
+    b6abe149-a724-4449-99a9-87035e6ca39e:
+      en:
+        title: Color Hunt
+        description: Color palettes
+    33a70fa8-6461-4f6c-9c78-b759a7394989:
+      en:
+        title: iconfont
+        description: Alibaba vector icon library
+    8633304a-67c9-4b4b-b7f1-ae3245e963ae:
+      en:
+        title: Freepik
+        description: Free vector assets
+    0bf24c72-e16e-4279-8a29-6b817642d813:
+      en:
+        title: Unsplash
+        description: Free high-resolution images
+    7aaea1d6-ce50-4e4b-93bc-dc83a66d570f:
+      en:
+        title: VuePress
+        description: Vue-powered static site generator
+    17e64467-6431-4f3f-91bf-0f9123bd2f33:
+      en: {}
+    7741341e-c159-43c8-b483-160e0a802202:
+      en: {}
+    ce7a4ee2-83a6-448e-a285-cee1094f4dc9:
+      en: {}
+    d51b3fab-ff09-4882-8152-e8866c7662b7:
+      en: {}
+    c5f0507f-00d1-4d0a-8281-781afb0e6c22:
+      en: {}
+    583a00db-3962-4d27-b476-442e235a3eac:
+      en: {}
+    18de4bb6-1d45-4ef4-a788-88c30b154f87:
+      en: {}
+    d40d17c4-55dc-4797-938a-cfb41f39ba1e:
+      en: {}
+    70e20a84-a200-4a8d-a5a5-fe0979054e03:
+      en: {}
+    a0f3d901-a25d-4406-91f0-988111e1a97f:
+      en: {}
+    f44255e6-f8bb-4618-ab59-7d62f7e66d43:
+      en: {}
+    66ee183e-c8e7-4fc1-80cc-7e5900ba11bb:
+      en: {}
+    9fbb91a8-bbb3-401a-98bd-0720fbcaa1e8:
+      en: {}
+    f62f0f47-22a5-4c7e-8a40-3ec0ec3fea71:
+      en: {}
+    bb64f52f-ce64-4384-8b25-b8afaea7146a:
+      en: {}
+    9880d137-ca9b-41ce-9c40-dae26156536e:
+      en: {}
+    2df19dfe-cc21-4bb2-bce4-d00a64087aaf:
+      en: {}
+    c0368d0d-785e-4f0c-9af9-806a967a10c1:
+      en: {}
+    1edb8a45-6f15-4b0a-ba72-72322d8fbd6b:
+      en: {}
+    2c6b7af2-8ae2-4726-80be-8f23a4247deb:
+      en: {}
+    f65b1a63-bb88-4c21-861c-05bea31bb9cd:
+      en: {}
+    e28edba2-9a1b-42d7-a916-64806b118a16:
+      en: {}
+    06a1efa3-a1bf-4033-9d08-bd8016daf937:
+      en: {}
+    8bd0d944-b74a-4d77-8e42-e87148ab767c:
+      en: {}
+    3259e62b-c038-4507-bd42-d36507718eed:
+      en: {}
+    ccca1529-8666-44e9-8986-51bd8227fc7d:
+      en: {}
+    5669eabe-fad7-45c8-8cd6-da21f0e29270:
+      en: {}
+    95a12c8a-0ec7-453a-9840-d3280528e437:
+      en: {}
+    923b39ea-e9d5-4cd6-8f47-517115409c57:
+      en: {}
+    92a0588c-889b-477c-b820-32755707da9a:
+      en: {}
+    9fc4741a-8594-4855-94f2-7d66cb3b6e7e:
+      en: {}
+    f9475ea4-2305-488d-bb0b-6da0307de89a:
+      en: {}
+    501565ed-4ed5-4a3a-a402-8c1ebf84f270:
+      en: {}
+    01d0f644-e7d3-4e83-9ab7-ebcea9e895e9:
+      en: {}
+    33cf0dde-005c-4ce1-8c95-5313c154c997:
+      en: {}
+    faba4dab-72c7-4d44-9b2b-de66e20e77c0:
+      en: {}
+    4dc0c049-e4fa-464d-8ac3-ff3a60df688d:
+      en: {}
+    a7e38c99-e843-407c-8c9e-9c24a61d0d03:
+      en: {}
+    75dc25c9-3ec7-41a9-9e62-c91c77ea498b:
+      en: {}
+    f364028e-2732-49e1-8c88-e55da97d22da:
+      en: {}
+    1df50ba0-935e-4dfe-af3e-8316af00f3b2:
+      en: {}
+    8861dee1-3e56-4095-835a-4f77bc47e54c:
+      en: {}
+    5af5bbac-f567-4439-beba-e91e14b3d831:
+      en: {}
+    b73e0be0-23e7-4582-8eec-11c69b3391dc:
+      en: {}
+    551373fc-3cd3-4906-9fd0-749037315eeb:
+      en: {}
+    1bd196d2-ba60-4d0b-aae0-098b18334d53:
+      en: {}
+    f8b92542-c757-43bd-8d4d-5d8f1a766a47:
+      en: {}
+    1c6cd3d9-fda4-46b6-b5fd-3b666159bc1c:
+      en: {}
+    c29124cd-7198-4aea-8e63-499708681706:
+      en: {}
+    7200735e-a6da-40db-9fa5-02d2715e3c5e:
+      en: {}
+    cde12c1c-a635-4fc2-a67f-391e3cf160ae:
+      en: {}
+    c81ea0f1-115f-4b28-85b3-9acfcb864601:
+      en: {}
+    12a7a836-035f-4c1e-85b3-d2975a453d57:
+      en: {}
+    e7bac7ce-d8a0-4ec1-88e0-9419d08deb84:
+      en: {}
+    429e3458-a88c-41a8-9682-8c1c1cb3660e:
+      en: {}
+    8477b609-7765-4244-a1e4-1c2b643dd03b:
+      en: {}
+    04c8e6df-1a4b-4bc0-bc18-b66911843316:
+      en: {}
+    52cdb638-4298-43ed-b46d-1100e330034b:
+      en: {}
+    f91b2be4-d70e-4648-8991-3899dec48573:
+      en: {}
+    e9d70a7c-f4a9-4519-ac2e-3283127ae7cc:
+      en: {}
+    45ed6f5a-5ac9-4e32-b51c-5e4bee6fcb70:
+      en: {}
+    de8525f0-7be4-4a8b-9127-93f9ec5b4c1b:
+      en: {}
+    3f50942e-bc3e-4a39-9516-cd91b11351f2:
+      en: {}
+    7d8257eb-8e54-48db-ae6c-c19cb09f6d03:
+      en: {}
+    71e5e5c2-4b3e-40bd-9ceb-737d674364f6:
+      en: {}
+    841a4a32-414e-4b60-a496-f9cc466e6fe2:
+      en: {}
+    d6194d25-dc66-4326-af8f-d44ccb793c9a:
+      en: {}
+    e5bedf32-db08-40dd-a550-b85f3c412817:
+      en:
+        title: Home Assistant
+    e70f8298-a7ee-458e-8810-41ff4fea40f1:
+      en:
+        title: MyMusicBox
+  title:
+    en: HomeNest
+style:
+  title:
+    fontSize: 1.88rem
+    fontWeight: "500"
+  card:
+    borderRadius: 16px
+    padding: 16px
+    gap: 8px
+    width: auto
+    showIcon: true
+    iconSize: 3rem
+  group:
+    titleFontSize: 1.2rem
+    gap: 0.5rem

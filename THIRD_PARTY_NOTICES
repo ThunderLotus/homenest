@@ -1,0 +1,191 @@
+Third-Party Notices for HomeNest
+=================================
+
+This file documents all third-party software, assets, and libraries used
+in HomeNest, along with their licenses and copyright holders.
+
+=========================================================================
+1. Upstream Project: Mafl
+=========================================================================
+
+License: MIT
+Copyright: (c) 2023-PRESENT Hywax
+Source: https://github.com/hywax/mafl
+
+HomeNest is a fork of Mafl. The original copyright notice and MIT
+license text are preserved in the LICENSE file, as required by the
+MIT license terms. A detailed list of modifications is in the NOTICE
+file.
+
+=========================================================================
+2. DiceBear Avatar Library
+=========================================================================
+
+Used for generating SVG avatars from style presets.
+
+Core package:
+  @dicebear/core — MIT
+  Copyright: (c) Florian Körner <contact@florian-koerner.com>
+  Source: https://github.com/dicebear/dicebear
+
+Avatar style packages (MIT only):
+  @dicebear/identicon, @dicebear/initials, @dicebear/lorelei,
+  @dicebear/lorelei-neutral, @dicebear/notionists,
+  @dicebear/notionists-neutral, @dicebear/open-peeps,
+  @dicebear/pixel-art, @dicebear/pixel-art-neutral,
+  @dicebear/rings, @dicebear/shapes, @dicebear/thumbs
+  License: MIT
+
+Avatar style packages (MIT AND CC-BY-4.0):
+  @dicebear/adventurer, @dicebear/adventurer-neutral,
+  @dicebear/big-ears, @dicebear/big-ears-neutral,
+  @dicebear/big-smile, @dicebear/croodles,
+  @dicebear/croodles-neutral, @dicebear/fun-emoji,
+  @dicebear/micah, @dicebear/miniavs, @dicebear/personas
+  License: MIT (code) AND CC-BY-4.0 (design assets)
+  CC-BY-4.0 requires attribution — see individual package LICENSE files
+  for the original designers of each style.
+
+Avatar style packages (Free for personal and commercial use):
+  @dicebear/avataaars, @dicebear/avataaars-neutral
+    Design: Avataaars (https://avataaars.com/)
+    Designer: Pablo Stanley (https://twitter.com/pablostanley)
+    License: Free for personal and commercial use
+
+  @dicebear/bottts, @dicebear/bottts-neutral
+    Design: Bottts (https://bottts.com/)
+    Designer: Pablo Stanley (https://twitter.com/pablostanley)
+    License: Free for personal and commercial use
+
+=========================================================================
+3. Icon Libraries
+=========================================================================
+
+Simple Icons (used via @nuxt/icon as "simple-icons:*")
+  License: CC0 1.0 Universal (Public Domain Dedication)
+  Source: https://github.com/simple-icons/simple-icons
+  No attribution required (public domain).
+
+Lucide Icons (used via @nuxt/icon as "lucide:*")
+  License: ISC
+  Copyright: (c) Lucide Contributors
+  Source: https://github.com/lucide-icons/lucide
+
+Iconify (used via @nuxt/icon and api.iconify.design)
+  @iconify/collections, @iconify/types, @iconify/utils, @iconify/vue
+  License: MIT
+  Copyright: (c) Vjacheslav Trushkin
+  Source: https://github.com/iconify/iconify
+
+  Note: Individual icon sets accessed via the Iconify API may have
+  their own licenses. Check https://icon-sets.iconify.design/ for
+  per-set license information.
+
+=========================================================================
+4. Framework & Core Dependencies
+=========================================================================
+
+Nuxt (framework)
+  License: MIT
+  Source: https://github.com/nuxt/nuxt
+
+Vue (framework)
+  License: MIT
+  Source: https://github.com/vuejs/core
+
+Vite (build tool)
+  License: MIT
+  Source: https://github.com/vitejs/vite
+
+@nuxtjs/tailwindcss, @nuxtjs/color-mode, @nuxtjs/i18n
+  License: MIT
+
+@vueuse/nuxt
+  License: MIT
+
+@vite-pwa/nuxt
+  License: MIT
+
+@nuxt/icon
+  License: MIT
+
+=========================================================================
+5. Server-side Dependencies
+=========================================================================
+
+@vercel/kv (Vercel KV / Upstash Redis client)
+  License: Apache-2.0
+  Source: https://github.com/vercel/storage
+
+zod (schema validation)
+  License: MIT
+  Source: https://github.com/colinhacks/zod
+
+yaml (YAML parser)
+  License: ISC
+  Copyright: (c) Eemeli Aro
+  Source: https://github.com/eemeli/yaml
+
+chokidar (file watcher)
+  License: MIT
+  Source: https://github.com/paulmillr/chokidar
+
+h3-zod (h3 + zod integration)
+  License: MIT
+
+consola (logger)
+  License: MIT
+  Source: https://github.com/unjs/consola
+
+defu (object merge)
+  License: MIT
+  Source: https://github.com/unjs/defu
+
+vue-draggable-plus (drag-and-drop)
+  License: MIT
+  Source: https://github.com/albert-gao/vue-draggable-plus
+
+=========================================================================
+6. Development Dependencies
+=========================================================================
+
+@antfu/eslint-config — MIT
+eslint — MIT
+typescript — Apache-2.0
+vue-tsc — MIT
+husky — MIT
+lint-staged — MIT
+changelogen — MIT
+vitepress — MIT
+@commitlint/cli, @commitlint/config-conventional — MIT
+
+=========================================================================
+7. Static Assets
+=========================================================================
+
+Favicons and PWA icons (src/public/favicons/):
+  Origin: Original Mafl project
+  License: MIT (as part of the Mafl codebase)
+
+Logo (docs/public/logotype.svg, logo.svg):
+  Origin: Original Mafl project
+  License: MIT (as part of the Mafl codebase)
+
+=========================================================================
+8. License Compatibility Summary
+=========================================================================
+
+All third-party licenses used in HomeNest are permissive and compatible
+with the MIT license:
+
+  MIT        — Allows use, modification, distribution with attribution
+  ISC        — Equivalent to MIT, allows use with attribution
+  Apache-2.0 — Permissive, requires NOTICE file preservation
+  CC0-1.0    — Public domain, no attribution required
+  CC-BY-4.0  — Requires attribution to original designer
+  Free for   — Allows personal and commercial use
+  commercial
+    use
+
+No copyleft licenses (GPL, LGPL, AGPL) are used in this project.
+No proprietary or restricted-use licenses are present.

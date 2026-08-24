@@ -1,0 +1,21 @@
+FROM node:22-alpine
+
+LABEL org.opencontainers.image.title="HomeNest" \
+      org.opencontainers.image.description="Self-hosted homepage & dashboard" \
+      org.opencontainers.image.licenses="MIT"
+
+WORKDIR /app
+
+COPY .output /app/.output
+COPY extra/healthcheck.mjs /app/extra/healthcheck.mjs
+COPY extra/entrypoint.sh /app/entrypoint.sh
+COPY config.sample.yml /app/config.sample.yml
+
+RUN chmod +x /app/entrypoint.sh
+
+EXPOSE 3000/tcp
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s CMD ["node", "/app/extra/healthcheck.mjs"]
+
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["node", "/app/.output/server/index.mjs"]
