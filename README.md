@@ -165,6 +165,16 @@ This workflow is **enabled by default** on forks —no setup needed. It listens 
 2. Look for **Hide Vercel Deployments** in the left sidebar
 3. After your first Vercel deploy, you'll see a run here. If the workflow was previously disabled manually, click **Enable workflow** (⋯ menu)
 
+**Clean up old deployments** (one-time):
+
+The auto-hide workflow only covers deployments created **after** it was added. To clear pre-existing deployment records (and the Production environment) that were created before the workflow existed:
+
+1. Go to your fork repo → **Actions** → **Cleanup All Deployments**
+2. Click **Run workflow** → select the default branch → **Run workflow**
+3. Wait ~10s —all old deployment records and environments are deleted
+
+Also clear the **Homepage URL** if your fork shows a Vercel URL in the About section: **Settings** → **General** → **Homepage URL** → clear → **Save**.
+
 > **Tip**: To only hide Preview deployments and keep Production visible, edit the workflow's `if` condition to add `&& github.event.deployment.environment != 'Production'`.
 
 ---

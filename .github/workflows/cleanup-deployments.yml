@@ -1,0 +1,38 @@
+name: Cleanup All Deployments
+
+# 手动触发：一次性删除所有 deployment records + environments。
+# 用于清理 hide-vercel-deployments.yml 存在之前的旧 deployment。
+# fork 用户：Actions → Cleanup All Deployments → Run workflow → 等几秒。
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+      contents: read
+    steps:
+      - name: Delete all deployment records and environments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "== Deleting all deployment records =="
+          for id in $(gh api "repos/$REPO/deployments" --jq '.[].id'); do
+            gh api "repos/$REPO/deployments/$id/statuses" \
+              -f state=inactive -f description="cleanup" 2>/dev/null || true
+            gh api -X DELETE "repos/$REPO/deployments/$id" 2>/dev/null \
+              && echo "deleted deployment $id" \
+              || echo "failed to delete deployment $id"
+          done
+
+          echo "== Deleting all environments =="
+          for env in $(gh api "repos/$REPO/environments" --jq '.environments[].name' 2>/dev/null); do
+            gh api -X DELETE "repos/$REPO/environments/$env" 2>/dev/null \
+              && echo "deleted environment $env" \
+              || echo "failed to delete environment $env"
+          done
+
+          echo "== Done =="
