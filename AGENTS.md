@@ -116,3 +116,7 @@ This makes the repo use plaintext `~/.git-credentials` filtered to the fork acco
 ### `loadConfig` must not leak errors into stored config
 
 If `loadConfig` (src/server/utils/config.ts) puts an error string into `defaultConfig.error` when the file is missing, the `config:update` startup task persists that polluted object into in-memory storage. Every subsequent read returns it, and the frontend throws 500 on `$settings.error`. When the config file is absent, return a clean `defaultConfig` (via `getInitialConfig()` for first-deploy sample content) — never embed error state in the config that gets stored.
+
+### Vite 8 requires Node 22+ (ES2025 `Set.prototype.difference`)
+
+Vite 8.x internally calls `Set.prototype.difference` (an ES2025 method). Node 20 does not have it — `npm run build` fails with `TypeError: trustedFunctions.difference is not a function`. CI must use Node 22+ (see `ci.yml`). The Dockerfile already uses `node:22-alpine`. Local dev also requires Node 22+.
