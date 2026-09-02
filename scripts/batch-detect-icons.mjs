@@ -1,8 +1,10 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import { Buffer } from 'node:buffer'
 import crypto from 'node:crypto'
-import https from 'node:https'
+import fs from 'node:fs'
 import http from 'node:http'
+import https from 'node:https'
+import path from 'node:path'
+import process from 'node:process'
 import { parse, stringify } from 'yaml'
 
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
@@ -37,7 +39,9 @@ function fetchUrl(url, options = {}) {
       }))
     })
     req.on('error', reject)
-    req.on('timeout', () => { req.destroy(new Error('timeout')) })
+    req.on('timeout', () => {
+      req.destroy(new Error('timeout'))
+    })
   })
 }
 
@@ -47,28 +51,46 @@ function isImageContentType(type) {
 }
 
 function resolveUrl(base, href) {
-  try { return new URL(href, base).toString() } catch { return null }
+  try {
+    return new URL(href, base).toString()
+  } catch {
+    return null
+  }
 }
 
 function rankCandidate(c) {
   let rank = c.size > 0 ? c.size : 16
-  if (/\.svg/i.test(c.href)) rank += 10000
+  if (/\.svg/i.test(c.href)) {
+    rank += 10000
+  }
   return rank
 }
 
 async function isFetchableIcon(url) {
-  if (url.startsWith('data:')) return url.startsWith('data:image')
-  if (!/^https?:\/\//i.test(url)) return false
+  if (url.startsWith('data:')) {
+    return url.startsWith('data:image')
+  }
+  if (!/^https?:\/\//i.test(url)) {
+    return false
+  }
   try {
     const res = await fetchUrl(url, { responseType: 'buffer' })
     return res.status === 200 && isImageContentType(String(res.headers['content-type'] || ''))
-  } catch { return false }
+  } catch {
+    return false
+  }
 }
 
 async function lookupFavicon(rawUrl) {
   let target
-  try { target = new URL(rawUrl) } catch { return null }
-  if (!['http:', 'https:'].includes(target.protocol)) return null
+  try {
+    target = new URL(rawUrl)
+  } catch {
+    return null
+  }
+  if (!['http:', 'https:'].includes(target.protocol)) {
+    return null
+  }
 
   const candidates = []
 
@@ -85,14 +107,22 @@ async function lookupFavicon(rawUrl) {
       for (let match = linkRe.exec(html); match && candidates.length < 20; match = linkRe.exec(html)) {
         const tag = match[0]
         const rel = (/\brel\s*=\s*["']([^"']*)["']/i.exec(tag)?.[1] ?? '').toLowerCase()
-        if (!rel.split(/\s+/).some((r) => r === 'icon' || r === 'shortcut icon' || r === 'apple-touch-icon' || r === 'apple-touch-icon-precomposed')) continue
+        if (!rel.split(/\s+/).some((r) => r === 'icon' || r === 'shortcut icon' || r === 'apple-touch-icon' || r === 'apple-touch-icon-precomposed')) {
+          continue
+        }
         const href = /\bhref\s*=\s*["']([^"']*)["']/i.exec(tag)?.[1]
-        if (!href) continue
+        if (!href) {
+          continue
+        }
         const size = Number.parseInt(/\bsizes\s*=\s*["'](\d+)x\d+["']/i.exec(tag)?.[1] || '0', 10) || 0
         const abs = resolveUrl(target.toString(), href)
-        if (abs) candidates.push({ href: abs, size })
+        if (abs) {
+          candidates.push({ href: abs, size })
+        }
       }
-      if (!candidates.length) candidates.push({ href: new URL('/favicon.ico', target).toString(), size: 0 })
+      if (!candidates.length) {
+        candidates.push({ href: new URL('/favicon.ico', target).toString(), size: 0 })
+      }
     }
   } catch {
     candidates.push({ href: new URL('/favicon.ico', target).toString(), size: 0 })
@@ -101,24 +131,42 @@ async function lookupFavicon(rawUrl) {
   candidates.sort((a, b) => rankCandidate(b) - rankCandidate(a))
 
   for (const candidate of candidates) {
-    if (await isFetchableIcon(candidate.href)) return candidate.href
+    if (await isFetchableIcon(candidate.href)) {
+      return candidate.href
+    }
   }
 
   const gstaticUrl = `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(target.toString())}&size=64`
-  if (await isFetchableIcon(gstaticUrl)) return gstaticUrl
+  if (await isFetchableIcon(gstaticUrl)) {
+    return gstaticUrl
+  }
 
   return null
 }
 
 function extFromContentType(type) {
   const t = type.toLowerCase()
-  if (t.includes('svg')) return '.svg'
-  if (t.includes('png')) return '.png'
-  if (t.includes('webp')) return '.webp'
-  if (t.includes('gif')) return '.gif'
-  if (t.includes('jpeg') || t.includes('jpg')) return '.jpg'
-  if (t.includes('ico') || t.includes('x-icon')) return '.ico'
-  if (t.includes('bmp')) return '.bmp'
+  if (t.includes('svg')) {
+    return '.svg'
+  }
+  if (t.includes('png')) {
+    return '.png'
+  }
+  if (t.includes('webp')) {
+    return '.webp'
+  }
+  if (t.includes('gif')) {
+    return '.gif'
+  }
+  if (t.includes('jpeg') || t.includes('jpg')) {
+    return '.jpg'
+  }
+  if (t.includes('ico') || t.includes('x-icon')) {
+    return '.ico'
+  }
+  if (t.includes('bmp')) {
+    return '.bmp'
+  }
   return '.png'
 }
 
@@ -126,7 +174,9 @@ function extFromUrl(url) {
   try {
     const parsed = path.extname(new URL(url).pathname).toLowerCase()
     return VALID_EXTENSIONS.has(parsed) ? parsed : ''
-  } catch { return '' }
+  } catch {
+    return ''
+  }
 }
 
 async function downloadAndSaveIcon(url) {
@@ -135,19 +185,27 @@ async function downloadAndSaveIcon(url) {
 
   if (url.startsWith('data:')) {
     const m = /^data:(image\/[a-z+.-]+)?;base64,(.+)$/i.exec(url)
-    if (!m) throw new Error('invalid data URL')
+    if (!m) {
+      throw new Error('invalid data URL')
+    }
     data = Buffer.from(m[2], 'base64')
     ext = extFromContentType(m[1] || '')
   } else {
     const res = await fetchUrl(url)
-    if (res.status !== 200) throw new Error(`HTTP ${res.status}`)
+    if (res.status !== 200) {
+      throw new Error(`HTTP ${res.status}`)
+    }
     data = res.body
     const contentType = String(res.headers['content-type'] || '')
     ext = extFromUrl(url) || extFromContentType(contentType)
   }
 
-  if (!data || data.length === 0) throw new Error('empty')
-  if (data.length > MAX_ICON_SIZE) throw new Error('too large')
+  if (!data || data.length === 0) {
+    throw new Error('empty')
+  }
+  if (data.length > MAX_ICON_SIZE) {
+    throw new Error('too large')
+  }
 
   const hash = crypto.createHash('sha256').update(url).digest('hex').slice(0, 16)
   const filename = `${hash}${ext}`
@@ -224,4 +282,7 @@ async function main() {
   }
 }
 
-main().catch((e) => { console.error('Fatal:', e); process.exit(1) })
+main().catch((e) => {
+  console.error('Fatal:', e)
+  process.exit(1)
+})

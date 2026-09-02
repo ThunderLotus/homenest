@@ -47,12 +47,7 @@ const SERVICE_TRANSLATIONS = {
   '口算练习题': { title: 'Mental Math Practice', description: '' },
 }
 
-const TITLE_ONLY_TRANSLATIONS = {
-  'Free for Developers': 'Free for Developers',
-  'Chrome Webstore Devconsole': 'Chrome Web Store Dev Console',
-}
-
-function translateConfig(configPath, isDefault = false) {
+function translateConfig(configPath, _isDefault = false) {
   const raw = fs.readFileSync(configPath, 'utf8')
   const config = parse(raw)
 
@@ -87,14 +82,18 @@ function translateConfig(configPath, isDefault = false) {
     }
 
     for (const svc of items) {
-      if (!svc.id) continue
+      if (!svc.id) {
+        continue
+      }
       const id = svc.id
-      const needsTitle = svc.title && /[\u4e00-\u9fff]/.test(svc.title)
-      const needsDesc = svc.description && /[\u4e00-\u9fff]/.test(svc.description)
+      const needsTitle = svc.title && /[\u4E00-\u9FFF]/.test(svc.title)
+      const needsDesc = svc.description && /[\u4E00-\u9FFF]/.test(svc.description)
 
       if (!needsTitle && !needsDesc) {
         const predef = SERVICE_TRANSLATIONS[svc.title]
-        if (!predef) continue
+        if (!predef) {
+          continue
+        }
       }
 
       i18n.services[id] = i18n.services[id] || {}
