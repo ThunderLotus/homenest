@@ -1,6 +1,7 @@
 import type { CompleteConfig, Service, Tag } from '~/types'
 import type { StyleCard, StyleGroup } from '~/types/style'
 import crypto from 'node:crypto'
+import appVersion from '#app-version'
 import sampleConfigRaw from '#sample-config'
 import defu from 'defu'
 import yaml from 'yaml'
@@ -9,7 +10,7 @@ import { useStorageDriver } from '~/server/storage'
 import { configDraftSchema, configSchema } from '~/server/validations'
 import { CARD_STYLE_DEFAULTS, GROUP_STYLE_DEFAULTS, STYLE_TITLE_DEFAULTS } from '~/utils/style'
 
-const sampleVersion = (yaml.parse(sampleConfigRaw) as Record<string, unknown>)?.version as string | undefined ?? ''
+const sampleVersion = appVersion
 
 type DraftService = Partial<Service>
 

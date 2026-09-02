@@ -212,6 +212,43 @@ Go to **Settings** —**Environment variables** —add the following for **Produ
 > - Password hashing uses PBKDF2 via Web Crypto API (<1ms CPU, well within Workers' 10ms limit).
 > - `@network-utils/tcp-ping` is removed —service health checks use HTTP fetch only.
 
+### Releasing a New Version
+
+Docker images are published automatically via GitHub Actions (`.github/workflows/release.yml`). Pushing a `v*.*.*` git tag triggers a multi-arch build (linux/amd64 + linux/arm64) pushed to Docker Hub and GitHub Container Registry.
+
+#### One-time setup — GitHub Secrets
+
+1. Create a Docker Hub access token: [hub.docker.com](https://hub.docker.com) → Account Settings → Security → New Access Token
+2. Add repository secrets in your fork → Settings → Secrets and variables → Actions:
+
+| Secret | Value |
+|---|---|
+| `DOCKERHUB_USERNAME` | Your Docker Hub username |
+| `DOCKERHUB_TOKEN` | The access token from step 1 |
+
+#### Release flow
+
+1. Bump `version` in `package.json` (e.g. `1.0.2`), or run `npm run release` which uses `changelogen` to bump + generate CHANGELOG + tag automatically
+2. Push the tag:
+
+```shell
+git tag v1.0.2
+git push origin v1.0.2
+```
+
+3. Watch the build: GitHub → Actions → "Release Docker Image" (~5-10 min for multi-arch)
+
+#### Resulting images
+
+For tag `v1.0.2`, the workflow pushes:
+
+| Registry | Tags |
+|---|---|
+| Docker Hub | `<DOCKERHUB_USERNAME>/homenest:v1.0.2`, `:latest`, `:v1` |
+| GHCR | `ghcr.io/<DOCKERHUB_USERNAME>/homenest:v1.0.2`, `:latest`, `:v1` |
+
+> **Note**: The tag must match `v*.*.*` (three-segment semver) to trigger the workflow and produce the `latest` + `v<major>` tags. Prerelease tags like `v2.0.0-alpha.1` only produce the exact tag. The version shown in the UI comes from `package.json`'s `version` field, injected at build time — no need to touch `config.sample.yml`.
+
 ### Environment Variables
 
 | Variable | Purpose | Default |

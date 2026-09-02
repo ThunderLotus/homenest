@@ -123,6 +123,7 @@ export default defineNuxtConfig({
     },
     virtual: {
       '#sample-config': () => `export default ${JSON.stringify(fs.readFileSync(path.resolve(process.cwd(), 'config.sample.yml'), 'utf-8'))}`,
+      '#app-version': () => `export default ${JSON.stringify(JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf-8')).version)}`,
     },
   },
 })
