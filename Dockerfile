@@ -10,7 +10,7 @@ RUN npm ci --legacy-peer-deps
 
 COPY . /app
 
-RUN npm run build
+RUN nuxi prepare && npm run build
 
 FROM $NODE
 

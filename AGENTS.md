@@ -117,6 +117,10 @@ This makes the repo use plaintext `~/.git-credentials` filtered to the fork acco
 
 If `loadConfig` (src/server/utils/config.ts) puts an error string into `defaultConfig.error` when the file is missing, the `config:update` startup task persists that polluted object into in-memory storage. Every subsequent read returns it, and the frontend throws 500 on `$settings.error`. When the config file is absent, return a clean `defaultConfig` (via `getInitialConfig()` for first-deploy sample content) — never embed error state in the config that gets stored.
 
+### Docker build fails: `Failed to resolve import source "~/types"`
+
+`npm ci` runs `nuxi prepare` as postinstall, but at that point only `package.json` has been copied into the Docker build context — `nuxt.config.ts` isn't there yet. So `nuxi prepare` uses Nuxt defaults (`srcDir: app/`) and generates a `.nuxt/tsconfig.json` with wrong path aliases. `.dockerignore` excludes `.nuxt`, so `COPY . /app` can't overwrite it. Fix: re-run `nuxi prepare` after `COPY . /app` in the Dockerfile (`RUN nuxi prepare && npm run build`).
+
 ### Vite 8 requires Node 22+ (ES2025 `Set.prototype.difference`)
 
 Vite 8.x internally calls `Set.prototype.difference` (an ES2025 method). Node 20 does not have it — `npm run build` fails with `TypeError: trustedFunctions.difference is not a function`. CI must use Node 22+ (see `ci.yml`). The Dockerfile already uses `node:22-alpine`. Local dev also requires Node 22+.
