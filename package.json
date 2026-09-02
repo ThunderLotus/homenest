@@ -8,6 +8,7 @@
     "dev": "nuxi dev",
     "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev",
     "release": "npm run lint && npm run typecheck && npm run build && changelogen --release --push",
+    "release:tag": "node scripts/release-tag.mjs",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
     "postinstall": "nuxi prepare",
