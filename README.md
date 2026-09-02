@@ -157,11 +157,13 @@ In the Vercel project settings → **Environment Variables**, add:
 
 By default, Vercel pushes a deployment record to your fork's GitHub repo on every deploy, exposing your Vercel app URL in the repo's **Deployments** sidebar. HomeNest includes a workflow (`.github/workflows/hide-vercel-deployments.yml`) that auto-deletes these records after each deploy.
 
-To enable it on your fork:
+This workflow is **enabled by default** on forks —no setup needed. It listens to the `deployment_status` event, which fires when Vercel finishes deploying, then immediately deletes the corresponding deployment record.
 
-1. Go to your fork repo on GitHub → **Actions** tab
-2. Click **I understand my workflows, go ahead and enable them** (forks disable Actions by default)
-3. Done —each Vercel deploy will now be automatically cleaned up, no further action needed
+**To verify it's active** (optional):
+
+1. Go to your fork repo → **Actions** tab
+2. Look for **Hide Vercel Deployments** in the left sidebar
+3. After your first Vercel deploy, you'll see a run here. If the workflow was previously disabled manually, click **Enable workflow** (⋯ menu)
 
 > **Tip**: To only hide Preview deployments and keep Production visible, edit the workflow's `if` condition to add `&& github.event.deployment.environment != 'Production'`.
 
