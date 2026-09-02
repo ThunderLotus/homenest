@@ -213,7 +213,7 @@ export async function loadConfig(name: string = 'default'): Promise<CompleteConf
 
   try {
     if (!await driver.has(fileName)) {
-      throw new Error(`Config "${fileName}" not found`)
+      return defaultConfig
     }
 
     const raw = await driver.get<string>(fileName)
