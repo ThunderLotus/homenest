@@ -9,6 +9,8 @@ import { useStorageDriver } from '~/server/storage'
 import { configDraftSchema, configSchema } from '~/server/validations'
 import { CARD_STYLE_DEFAULTS, GROUP_STYLE_DEFAULTS, STYLE_TITLE_DEFAULTS } from '~/utils/style'
 
+const sampleVersion = (yaml.parse(sampleConfigRaw) as Record<string, unknown>)?.version as string | undefined ?? ''
+
 type DraftService = Partial<Service>
 
 type TagMap = Map<Tag['name'], Tag>
@@ -166,6 +168,7 @@ function pickPersistableService(service: Service): Record<string, unknown> {
 export function getDefaultConfig(): CompleteConfig {
   return {
     title: 'HomeNest',
+    version: sampleVersion,
     lang: 'en',
     baseLang: 'en',
     theme: 'system',

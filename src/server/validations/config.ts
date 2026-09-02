@@ -43,6 +43,7 @@ const configI18nSchema = z.object({
 
 export const configSchema = z.object({
   title: z.string().optional(),
+  version: z.string().optional(),
   lang: z.string().optional(),
   baseLang: z.string().optional(),
   theme: z.string().optional(),

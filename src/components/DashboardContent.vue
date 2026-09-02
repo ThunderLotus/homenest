@@ -9,7 +9,7 @@
     >
       <Icon :name="allCollapsed ? 'lucide:chevrons-down' : 'lucide:chevrons-up'" class="w-5 h-5" />
     </button>
-    <span>{{ title }}</span>
+    <span>{{ title }}<span v-if="$settings.version" class="ml-2 text-sm text-fg-dimmed font-normal">v{{ $settings.version }}</span></span>
   </h1>
   <EditorEditableGroups v-if="isEditing" />
   <template v-else>

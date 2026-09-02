@@ -37,6 +37,7 @@ export interface ConfigI18n {
 
 export interface Config {
   title?: string
+  version?: string
   lang?: 'en' | 'ru' | 'zh' | 'hi' | 'es' | 'ar' | 'pl' | 'fr' | 'de' | 'gr' | 'nl'
   baseLang?: string
   theme?: 'system' | 'light' | 'dark' | 'deep' | 'sepia' | 'bluer'
