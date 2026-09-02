@@ -13,5 +13,5 @@ try {
 }
 
 console.log(`Creating tag ${tag} from package.json version...`)
-execSync(`git tag ${tag}`, { stdio: 'inherit' })
+execSync(`git tag -a -m "Release ${tag}" ${tag}`, { stdio: 'inherit' })
 execSync(`git push origin ${tag}`, { stdio: 'inherit' })
