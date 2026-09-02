@@ -1,6 +1,7 @@
 import type { CompleteConfig, Service, Tag } from '~/types'
 import type { StyleCard, StyleGroup } from '~/types/style'
 import crypto from 'node:crypto'
+import sampleConfigRaw from '#sample-config'
 import defu from 'defu'
 import yaml from 'yaml'
 import { ZodError } from 'zod'
@@ -194,6 +195,47 @@ export function getDefaultConfig(): CompleteConfig {
   }
 }
 
+let cachedInitialConfig: CompleteConfig | null = null
+
+/**
+ * Initial config shown on first deploy when no config file exists yet.
+ * Parses the bundled `config.sample.yml` so a fresh instance shows the
+ * example services instead of an empty dashboard. Falls back to the
+ * built-in empty default if the sample fails to parse/validate.
+ */
+export function getInitialConfig(): CompleteConfig {
+  if (cachedInitialConfig) {
+    return cachedInitialConfig
+  }
+
+  const defaultConfig = getDefaultConfig()
+  let result: CompleteConfig = defaultConfig
+
+  try {
+    const config = yaml.parse(sampleConfigRaw) || {}
+    const services: CompleteConfig['services'] = []
+    const tags: TagMap = createTagMap(config.tags || [])
+
+    configSchema.parse(config)
+
+    if (Array.isArray(config.services)) {
+      services.push({ items: determineService(config.services, tags) })
+    } else {
+      const entries = Object.entries<DraftService[]>(config.services || [])
+      for (const [title, items] of entries) {
+        services.push({ title, items: determineService(items, tags) })
+      }
+    }
+
+    result = defu({ ...config, services }, defaultConfig)
+  } catch (e) {
+    logger.error(e)
+  }
+
+  cachedInitialConfig = result
+  return result
+}
+
 function createTagMap(tags: Tag[]): TagMap {
   return tags.reduce((acc, tag) => {
     acc.set(tag.name, tag)
@@ -213,7 +255,7 @@ export async function loadConfig(name: string = 'default'): Promise<CompleteConf
 
   try {
     if (!await driver.has(fileName)) {
-      return defaultConfig
+      return getInitialConfig()
     }
 
     const raw = await driver.get<string>(fileName)

@@ -1,7 +1,7 @@
 import type { ConfigStore } from './config-store'
 import type { StorageDriver } from './driver'
 import type { CompleteConfig } from '~/types'
-import { configFileNameFor, getConfig, getDefaultConfig, hasConfigFile, loadConfig, saveConfig, setConfig } from '~/server/utils/config'
+import { configFileNameFor, getConfig, getInitialConfig, hasConfigFile, loadConfig, saveConfig, setConfig } from '~/server/utils/config'
 
 const CONFIG_CACHE_TTL = 5_000
 
@@ -33,7 +33,7 @@ export class DefaultConfigStore implements ConfigStore {
 
     if (!config) {
       if (!await hasConfigFile(name)) {
-        return getDefaultConfig()
+        return getInitialConfig()
       }
       config = await loadConfig(name)
       await setConfig(config, name)

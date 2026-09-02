@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import process from 'node:process'
 
 export default defineNuxtConfig({
@@ -118,6 +120,9 @@ export default defineNuxtConfig({
     experimental: {
       websocket: process.env.MAFL_STORAGE_DRIVER !== 'vercel-kv' && !process.env.KV_REST_API_URL,
       tasks: true,
+    },
+    virtual: {
+      '#sample-config': () => `export default ${JSON.stringify(fs.readFileSync(path.resolve(process.cwd(), 'config.sample.yml'), 'utf-8'))}`,
     },
   },
 })
