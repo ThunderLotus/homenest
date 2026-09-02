@@ -153,6 +153,18 @@ In the Vercel project settings → **Environment Variables**, add:
 
 > **Note**: WebSocket is auto-disabled on Vercel (serverless doesn't support long connections). Config sync uses 10-second version polling instead.
 
+#### Step 7 —Hide Vercel deployment records from GitHub (optional)
+
+By default, Vercel pushes a deployment record to your fork's GitHub repo on every deploy, exposing your Vercel app URL in the repo's **Deployments** sidebar. HomeNest includes a workflow (`.github/workflows/hide-vercel-deployments.yml`) that auto-deletes these records after each deploy.
+
+To enable it on your fork:
+
+1. Go to your fork repo on GitHub → **Actions** tab
+2. Click **I understand my workflows, go ahead and enable them** (forks disable Actions by default)
+3. Done —each Vercel deploy will now be automatically cleaned up, no further action needed
+
+> **Tip**: To only hide Preview deployments and keep Production visible, edit the workflow's `if` condition to add `&& github.event.deployment.environment != 'Production'`.
+
 ---
 
 ### Cloudflare Pages
