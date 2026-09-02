@@ -1,0 +1,38 @@
+name: Hide Vercel Deployments
+
+# Vercel 每次部署会通过 GitHub Deployments API 创建 deployment record + status。
+# 这导致 GitHub 仓库页右侧 "Deployments" 区域暴露 Vercel app 地址。
+# 本 workflow 在 Vercel 部署完成后（status=success/failure）自动删除该 record。
+#
+# fork 用户使用：fork 后去 Actions 页面启用 Actions 即可自动生效。
+# 如只想清理 Preview 部署、保留 Production，在 if 条件里加 environment 过滤。
+
+on:
+  deployment_status:
+
+jobs:
+  hide-deployment:
+    runs-on: ubuntu-latest
+    # 只在部署终态清理（跳过 queued / in_progress / pending 中间态）
+    if: github.event.deployment_status.state == 'success' || github.event.deployment_status.state == 'failure' || github.event.deployment_status.state == 'error'
+    permissions:
+      deployments: write
+    steps:
+      - name: Delete deployment record
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          DEPLOYMENT_ID: ${{ github.event.deployment.id }}
+          STATE: ${{ github.event.deployment_status.state }}
+          ENVIRONMENT: ${{ github.event.deployment.environment }}
+        run: |
+          echo "Cleaning deployment $DEPLOYMENT_ID (env=$ENVIRONMENT, state=$STATE)"
+          # GitHub API 要求先创建 inactive status 才能删除 deployment
+          gh api "repos/$REPO/deployments/$DEPLOYMENT_ID/statuses" \
+            -f state=inactive -f description="auto-cleanup" 2>/dev/null || true
+          # 删除 deployment record
+          if gh api -X DELETE "repos/$REPO/deployments/$DEPLOYMENT_ID" 2>/dev/null; then
+            echo "Deleted deployment $DEPLOYMENT_ID"
+          else
+            echo "Failed to delete deployment $DEPLOYMENT_ID (may already be gone)"
+          fi
