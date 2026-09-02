@@ -1,8 +1,8 @@
 <h1 align="center">HomeNest</h1>
 <p align="center">
-  <i>A minimal, self-hosted homepage for your services. Organize everything in one place and keep an eye on their status.</i>
+  <i>Self-hosted homepage & service dashboard. YAML config, drag-and-drop editor, health monitoring, multi-theme, i18n, PWA. Nuxt 4 + Vue 3. Docker / Vercel / Cloudflare.</i>
   <br/>
-  <i>一个简单的自托管服务之家，把你的所有服务放在一个入口</i>
+  <i>自托管主页与服务仪表板。YAML 配置、拖拽编辑、健康监控、多主题、国际化、PWA。Nuxt 4 + Vue 3，支持 Docker / Vercel / Cloudflare 部署。</i>
   <br/><br/>
   <b><a href="#getting-started--快速开始">Getting Started</a></b> | <b><a href="#deployment--部署">Deployment</a></b> | <b><a href="#usage--使用方式">Usage</a></b>
   <br/><br/>
