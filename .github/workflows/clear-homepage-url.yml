@@ -1,0 +1,31 @@
+name: Clear Homepage URL
+
+# Vercel 部署完成后会自动设置 GitHub 仓库的 homepage URL（About 区域的 Website 字段）。
+# Vercel 没有关闭此行为的开关，所以用 Action 在部署后清除或覆盖。
+# 监听 repository_dispatch 事件（Vercel 部署完成时发送，独立于 deployment_status Events）。
+#
+# 自定义：把下面的 HOMEPAGE_URL 改成你想要的 URL，留空则清除。
+
+on:
+  repository_dispatch:
+    types:
+      - 'vercel.deployment.success'
+      - 'vercel.deployment.ready'
+
+jobs:
+  clear-homepage:
+    runs-on: ubuntu-latest
+    permissions:
+      administration: write
+    steps:
+      - name: Clear or set homepage URL
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          HOMEPAGE_URL: ""  # 改成你想要的 URL，留空则清除
+        run: |
+          if gh api -X PATCH "repos/$REPO" -f homepage="$HOMEPAGE_URL" 2>/dev/null; then
+            echo "Set homepage URL to: '${HOMEPAGE_URL:-（empty）}'"
+          else
+            echo "Failed to set homepage URL"
+          fi

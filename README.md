@@ -235,6 +235,10 @@ Then clean up pre-existing records (one-time):
 After this, GitHub won't show any Vercel deployment info on future deploys.
 > 之后，GitHub 不会再显示任何 Vercel 部署信息。
 
+> **Note**: Vercel may still auto-set the repo **Homepage URL** (Website field in About) after production deploys —there's no Vercel-side toggle for this. The included `clear-homepage-url.yml` workflow auto-clears it on each deploy via `repository_dispatch` event. To set a custom URL instead of clearing, edit `HOMEPAGE_URL` in that workflow.
+>
+> **注意**：Vercel 仍可能在生产部署后自动设置仓库 **Homepage URL**（About 区域的 Website 字段）—Vercel 端无开关。项目内置的 `clear-homepage-url.yml` workflow 会通过 `repository_dispatch` 事件在每次部署后自动清除。想设置自定义 URL 而非清除，编辑该 workflow 中的 `HOMEPAGE_URL`。
+
 ---
 
 ### Cloudflare Pages
