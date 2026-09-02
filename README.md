@@ -153,29 +153,20 @@ In the Vercel project settings → **Environment Variables**, add:
 
 > **Note**: WebSocket is auto-disabled on Vercel (serverless doesn't support long connections). Config sync uses 10-second version polling instead.
 
-#### Step 7 —Hide Vercel deployment records from GitHub (optional)
+#### Step 7 —Hide Vercel deployment info from GitHub (optional)
 
-By default, Vercel pushes a deployment record to your fork's GitHub repo on every deploy, exposing your Vercel app URL in the repo's **Deployments** sidebar. HomeNest includes a workflow (`.github/workflows/hide-vercel-deployments.yml`) that auto-deletes these records after each deploy.
+By default, Vercel exposes your app URL on your fork's GitHub repo in two places: the **Deployments** sidebar and the **About** section (homepage URL). To prevent this, **disable at the source** in Vercel:
 
-This workflow is **enabled by default** on forks —no setup needed. It listens to the `deployment_status` event, which fires when Vercel finishes deploying, then immediately deletes the corresponding deployment record.
+1. Vercel Dashboard → your project → **Settings** → **Git** → **Connected Git Repository**
+2. Turn off **Pull Request Comments** —stops Vercel bot from commenting on PRs
+3. Turn off **deployment_status Events** —stops Vercel from creating deployment records on GitHub
 
-**To verify it's active** (optional):
+Then clean up pre-existing records (one-time):
 
-1. Go to your fork repo → **Actions** tab
-2. Look for **Hide Vercel Deployments** in the left sidebar
-3. After your first Vercel deploy, you'll see a run here. If the workflow was previously disabled manually, click **Enable workflow** (⋯ menu)
+4. Fork repo → **Actions** → **Cleanup All Deployments** → **Run workflow** —deletes all old deployment records, environments, and clears the homepage URL
+5. Fork repo → **Settings** → **General** → **Homepage URL** → clear → **Save** (if still set)
 
-**Clean up old deployments** (one-time):
-
-The auto-hide workflow only covers deployments created **after** it was added. To clear pre-existing deployment records (and the Production environment) that were created before the workflow existed:
-
-1. Go to your fork repo → **Actions** → **Cleanup All Deployments**
-2. Click **Run workflow** → select the default branch → **Run workflow**
-3. Wait ~10s —all old deployment records and environments are deleted
-
-Also clear the **Homepage URL** if your fork shows a Vercel URL in the About section: **Settings** → **General** → **Homepage URL** → clear → **Save**.
-
-> **Tip**: To only hide Preview deployments and keep Production visible, edit the workflow's `if` condition to add `&& github.event.deployment.environment != 'Production'`.
+After this, GitHub won't show any Vercel deployment info on future deploys.
 
 ---
 

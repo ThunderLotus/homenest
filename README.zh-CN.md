@@ -153,6 +153,21 @@ docker compose up -d
 
 > **注意**：Vercel Serverless 不支持长连接，WebSocket 会自动禁用，改用 10 秒版本轮询同步配置。
 
+#### 步骤 7 — 在 GitHub 上隐藏 Vercel 部署信息（可选）
+
+默认情况下，Vercel 会在 fork 仓库的 GitHub 页面暴露你的 App URL，出现在两处：**Deployments** 侧边栏和 **About** 区域（Homepage URL）。要阻止这种情况，**在 Vercel 端从源头关闭**：
+
+1. Vercel 仪表板 → 你的项目 → **Settings** → **Git** → **Connected Git Repository**
+2. 关闭 **Pull Request Comments** —阻止 Vercel bot 在 PR 上评论
+3. 关闭 **deployment_status Events** —阻止 Vercel 在 GitHub 上创建部署记录
+
+然后一次性清理已有记录：
+
+4. Fork 仓库 → **Actions** → **Cleanup All Deployments** → **Run workflow** —删除所有旧的部署记录、环境，并清除 Homepage URL
+5. Fork 仓库 → **Settings** → **General** → **Homepage URL** → 清空 → **Save**（如果仍被设置）
+
+之后，GitHub 不会再显示任何 Vercel 部署信息。
+
 ---
 
 ### Cloudflare Pages
