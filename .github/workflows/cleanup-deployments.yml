@@ -12,9 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       deployments: write
+      administration: write
       contents: read
     steps:
-      - name: Delete all deployment records and environments
+      - name: Delete all deployment records, environments, and homepage URL
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -34,5 +35,10 @@ jobs:
               && echo "deleted environment $env" \
               || echo "failed to delete environment $env"
           done
+
+          echo "== Clearing homepage URL =="
+          gh api -X PATCH "repos/$REPO" -f homepage="" 2>/dev/null \
+            && echo "cleared homepage URL" \
+            || echo "failed to clear homepage URL"
 
           echo "== Done =="

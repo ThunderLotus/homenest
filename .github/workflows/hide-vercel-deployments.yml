@@ -1,10 +1,11 @@
 name: Hide Vercel Deployments
 
-# Vercel 每次部署会通过 GitHub Deployments API 创建 deployment record + status。
-# 这导致 GitHub 仓库页右侧 "Deployments" 区域暴露 Vercel app 地址。
-# 本 workflow 在 Vercel 部署完成后（status=success/failure）自动删除该 record。
+# Vercel 每次部署会通过 GitHub API 做两件事：
+# 1. 创建 deployment record + status → 仓库页 "Deployments" 区域暴露 URL
+# 2. 设置仓库 homepage 字段为 Vercel app URL → About 区域暴露 URL
+# 本 workflow 在 Vercel 部署完成后（status=success/failure）自动清除两者。
 #
-# fork 用户使用：fork 后去 Actions 页面启用 Actions 即可自动生效。
+# fork 用户：workflow 默认启用，无需操作。
 # 如只想清理 Preview 部署、保留 Production，在 if 条件里加 environment 过滤。
 
 on:
@@ -17,8 +18,9 @@ jobs:
     if: github.event.deployment_status.state == 'success' || github.event.deployment_status.state == 'failure' || github.event.deployment_status.state == 'error'
     permissions:
       deployments: write
+      administration: write
     steps:
-      - name: Delete deployment record
+      - name: Delete deployment record + clear homepage URL
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -35,4 +37,10 @@ jobs:
             echo "Deleted deployment $DEPLOYMENT_ID"
           else
             echo "Failed to delete deployment $DEPLOYMENT_ID (may already be gone)"
+          fi
+          # 清空仓库 homepage URL（Vercel 部署时会自动设置，这里清除）
+          if gh api -X PATCH "repos/$REPO" -f homepage="" 2>/dev/null; then
+            echo "Cleared homepage URL"
+          else
+            echo "Failed to clear homepage URL"
           fi
