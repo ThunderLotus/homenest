@@ -15,8 +15,7 @@ on:
 jobs:
   clear-homepage:
     runs-on: ubuntu-latest
-    permissions:
-      administration: write
+
     steps:
       - name: Clear or set homepage URL
         env:

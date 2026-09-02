@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       deployments: write
-      administration: write
+
       contents: read
     steps:
       - name: Delete all deployment records, environments, and homepage URL
