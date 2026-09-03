@@ -39,9 +39,8 @@ jobs:
           version_tag="${{github.ref_name}}"
           tags=($version_tag)
           if [[ "$version_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            # prerelease tags like `v2.0.0-alpha.1` should not be released as `latest` nor `v2`
+            # prerelease tags like `v2.0.0-alpha.1` should not be released as `latest`
             tags+=("latest")
-            tags+=($(echo "$version_tag" | cut -d. -f1))
           fi
           releases=""
           for tag in "${tags[@]}"; do
