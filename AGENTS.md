@@ -46,7 +46,7 @@ scripts/release-tag.mjs  Release tagging script
    ```
    This creates `v1.0.3` tag and pushes it. The script refuses if the tag already exists.
 4. **CI auto-builds** — `.github/workflows/release.yml` triggers on `v*.*.*` tags:
-   - Builds multi-arch images (linux/amd64 + linux/arm64)
+   - Builds linux/amd64 image
    - Pushes to Docker Hub + GitHub Container Registry
    - Tags produced: `v1.0.3`, `latest`, `v1` (major)
 5. **Verify** — GitHub → Actions → "Release Docker Image" (~5-10 min). Then:
