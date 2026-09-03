@@ -48,7 +48,7 @@ scripts/release-tag.mjs  Release tagging script
 4. **CI auto-builds** — `.github/workflows/release.yml` triggers on `v*.*.*` tags:
    - Builds linux/amd64 image
    - Pushes to Docker Hub + GitHub Container Registry
-   - Tags produced: `v1.0.3`, `latest`, `v1` (major)
+   - Tags produced: `v1.0.3`, `latest`
 5. **Verify** — GitHub → Actions → "Release Docker Image" (~5-10 min). Then:
    ```shell
    docker pull <DOCKERHUB_USERNAME>/homenest:latest
@@ -119,7 +119,25 @@ If `loadConfig` (src/server/utils/config.ts) puts an error string into `defaultC
 
 ### Docker build fails: `Failed to resolve import source "~/types"`
 
-`npm ci` runs `nuxi prepare` as postinstall, but at that point only `package.json` has been copied into the Docker build context — `nuxt.config.ts` isn't there yet. So `nuxi prepare` uses Nuxt defaults (`srcDir: app/`) and generates a `.nuxt/tsconfig.json` with wrong path aliases. `.dockerignore` excludes `.nuxt`, so `COPY . /app` can't overwrite it. Fix: re-run `nuxi prepare` after `COPY . /app` in the Dockerfile (`RUN nuxi prepare && npm run build`).
+`npm ci` runs `nuxi prepare` as postinstall, but at that point only `package.json` has been copied into the Docker build context — `nuxt.config.ts` isn't there yet. So `nuxi prepare` uses Nuxt defaults (`srcDir: app/`) and generates a `.nuxt/tsconfig.json` with wrong path aliases. `.dockerignore` excludes `.nuxt`, so `COPY . /app` can't overwrite it. Fix: re-run `nuxi prepare` after `COPY . /app` in the Dockerfile. **Must use `npx nuxi prepare`** — bare `nuxi` is not in PATH in Alpine and fails with `exit code: 127`. Final command: `RUN npx nuxi prepare && npm run build`.
+
+### Multi-arch Docker build is extremely slow
+
+Building `linux/amd64,linux/arm64` via QEMU emulation takes 30+ minutes (arm64 `npm ci` + `nuxi prepare` + `npm run build` all run under emulation). If only amd64 is needed, set `platforms: linux/amd64` in `release.yml` and remove the `docker/setup-qemu-action` step. Build drops to ~3 minutes.
+
+### Re-tagging to re-trigger Release CI
+
+If a Release workflow fails and you need to re-run it with the same version, you must delete and recreate the tag (there's no `workflow_dispatch` on `release.yml`):
+
+```shell
+git push origin :refs/tags/v1.0.2   # delete remote
+git tag -d v1.0.2                    # delete local
+npm run release:tag                  # recreate + push
+```
+
+### Docker Hub secrets — both required before first release
+
+`DOCKERHUB_USERNAME` **and** `DOCKERHUB_TOKEN` must both be configured as GitHub Actions secrets. Missing either one causes "Login to Docker Hub" step to fail. The token must be a Docker Hub **access token** (not password). Add at: repo → Settings → Secrets and variables → Actions.
 
 ### Vite 8 requires Node 22+ (ES2025 `Set.prototype.difference`)
 
