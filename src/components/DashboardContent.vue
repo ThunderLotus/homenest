@@ -12,13 +12,13 @@
     <span>{{ title }}<span v-if="$settings.version" class="ml-2 text-sm text-fg-dimmed font-normal">v{{ $settings.version }}</span></span>
   </h1>
   <EditorEditableGroups v-if="isEditing" />
-  <template v-else>
+  <div v-else :class="groupContainerClasses">
     <Group
       v-for="(group, key) in $services"
       :key="key"
       v-bind="{ ...group, grid: $settings.layout.grid, layoutMode: $settings.layout.mode }"
     />
-  </template>
+  </div>
   <Update v-if="$settings.checkUpdates" />
 </template>
 
@@ -31,6 +31,11 @@ const { trPageTitle } = useContentI18n()
 const route = useRoute()
 
 const style = computed(() => (isEditing.value ? (draft.value?.style ?? {}) : ($settings.style ?? {})) as Record<string, any>)
+
+/** Vertical mode: groups sit side-by-side and wrap (homepage-style columns). */
+const groupContainerClasses = computed(() => ((isEditing.value ? draft.value?.layout.mode : $settings.layout.mode) === 'vertical'
+  ? 'flex flex-wrap items-start'
+  : ''))
 
 const pageTitleVisible = computed(() => !!style.value.title?.fontSize || !!style.value.title?.fontWeight)
 const pageTitleStyle = computed(() => ({

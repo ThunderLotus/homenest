@@ -1,13 +1,14 @@
 <template>
-  <div v-if="!searchActive || visibleItems.length > 0" class="py-10" :style="groupContainerStyle">
+  <div v-if="!searchActive || visibleItems.length > 0" :class="containerClasses" :style="groupContainerStyle">
     <h2
       v-if="title || edit"
-      class="text-2xl font-light py-2 px-4 flex items-center gap-2"
-      :style="groupTitleStyle"
+      class="flex items-center gap-2 py-2"
       :class="[
         edit ? 'group-handle cursor-move select-none rounded-xl hover:bg-fg/5 dark:hover:bg-fg/9' : '',
         isSelectedGroup ? 'ring-2 ring-brand-500' : '',
+        titleClasses,
       ]"
+      :style="groupTitleStyle"
       @click="edit && onSelectGroup()"
     >
       <button
@@ -27,11 +28,11 @@
       :grid="grid"
       :layout-mode="layoutMode"
       :group-key="groupKey"
-      :card-style="cardStyle"
+      :card-style="verticalCardStyle"
     />
     <div v-else-if="!groupCollapsed || searchActive" :class="gridClasses" :style="gridGapStyle">
       <template v-for="item in visibleItems" :key="item.id">
-        <Item v-bind="item" :card-style="cardStyle" />
+        <Item v-bind="item" :card-style="verticalCardStyle" />
       </template>
     </div>
   </div>
@@ -94,7 +95,21 @@ const groupTitleStyle = computed(() => {
   }
 })
 
+const isVertical = computed(() => props.layoutMode === 'vertical')
+
+const containerClasses = computed(() => (isVertical.value
+  ? 'flex-1 basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 p-1'
+  : 'py-10'))
+
+const titleClasses = computed(() => (isVertical.value
+  ? 'text-xl font-medium px-2'
+  : 'text-2xl font-light px-4'))
+
 const groupContainerStyle = computed(() => {
+  if (isVertical.value) {
+    return undefined
+  }
+
   const gap = style.value.group?.gap
 
   return gap ? { paddingTop: gap, paddingBottom: gap } : undefined
@@ -103,11 +118,28 @@ const groupContainerStyle = computed(() => {
 /** Global card defaults merged with this group's override (card level merges later). */
 const cardStyle = computed<StyleCard>(() => defu({}, groupOverride.value?.card, style.value.card))
 
+/**
+ * Vertical mode reproduces homepage's compact narrow-row cards: small padding,
+ * small icon, smaller title. Explicit user style always wins over these.
+ */
+const verticalCardStyle = computed<StyleCard>(() => {
+  if (!isVertical.value) {
+    return cardStyle.value
+  }
+
+  return defu(cardStyle.value, {
+    padding: '0.5rem',
+    borderRadius: '0.375rem',
+    iconSize: '2.5rem',
+    fontSize: '0.875rem',
+  } as StyleCard)
+})
+
 const gridGapStyle = computed(() => (cardStyle.value.gap ? { gap: cardStyle.value.gap } : undefined))
 
 const gridClasses = computed(() => {
-  if (props.layoutMode === 'vertical') {
-    return ['flex', 'flex-col', 'gap-1', 'lg:gap-2']
+  if (isVertical.value) {
+    return ['flex', 'flex-col', 'gap-2']
   }
   return [
     'grid',

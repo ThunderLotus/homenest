@@ -1,8 +1,8 @@
 <template>
-  <div ref="groupsEl" class="w-full">
-    <div v-for="group in editGroups" :key="keyOf(group)" class="w-full">
+  <div ref="groupsEl" class="w-full" :class="containerClasses">
+    <div v-for="group in editGroups" :key="keyOf(group)" :class="groupWrapperClasses">
       <Group
-        v-bind="{ ...group, grid }"
+        v-bind="{ ...group, grid, layoutMode }"
         :edit="true"
         :group-key="keyOf(group)"
       />
@@ -37,6 +37,13 @@ const grid = computed<Layout['grid']>(
       xlarge: 4,
     },
 )
+
+const layoutMode = computed(() => editor.draft.value?.layout.mode)
+
+/** Vertical mode: groups sit side-by-side and wrap (homepage-style columns). */
+const containerClasses = computed(() => (layoutMode.value === 'vertical' ? 'flex flex-wrap items-start' : ''))
+
+const groupWrapperClasses = computed(() => (layoutMode.value === 'vertical' ? 'flex-1 basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4' : 'w-full'))
 
 const groupsEl = ref<HTMLElement | null>(null)
 
