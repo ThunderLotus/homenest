@@ -46,10 +46,10 @@ scripts/release-tag.mjs  Release tagging script
    ```
    This creates `v1.0.3` tag and pushes it. The script refuses if the tag already exists.
 4. **CI auto-builds** — `.github/workflows/release.yml` triggers on `v*.*.*` tags:
-   - Builds linux/amd64 image
+   - Builds multi-arch images (linux/amd64 + linux/arm64)
    - Pushes to Docker Hub + GitHub Container Registry
    - Tags produced: `v1.0.3`, `latest`
-5. **Verify** — GitHub → Actions → "Release Docker Image" (~5-10 min). Then:
+5. **Verify** — GitHub → Actions → "Release Docker Image" (~10-30 min, first build slower due to QEMU; subsequent builds faster with GHA cache). Then:
    ```shell
    docker pull <DOCKERHUB_USERNAME>/homenest:latest
    ```
@@ -123,7 +123,7 @@ If `loadConfig` (src/server/utils/config.ts) puts an error string into `defaultC
 
 ### Multi-arch Docker build is extremely slow
 
-Building `linux/amd64,linux/arm64` via QEMU emulation takes 30+ minutes (arm64 `npm ci` + `nuxi prepare` + `npm run build` all run under emulation). If only amd64 is needed, set `platforms: linux/amd64` in `release.yml` and remove the `docker/setup-qemu-action` step. Build drops to ~3 minutes.
+Building `linux/amd64,linux/arm64` via QEMU emulation takes 10-30 minutes (arm64 `npm ci` + `nuxi prepare` + `npm run build` all run under emulation). `release.yml` uses `cache-from: type=gha` + `cache-to: type=gha,mode=max` to cache build layers in GitHub Actions, so subsequent builds are faster. If only amd64 is needed temporarily, set `platforms: linux/amd64` and remove the `docker/setup-qemu-action` step. Build drops to ~3 minutes.
 
 ### Re-tagging to re-trigger Release CI
 
