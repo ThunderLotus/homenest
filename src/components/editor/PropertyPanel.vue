@@ -49,6 +49,20 @@
         </label>
 
         <div class="pt-1 border-t border-fg/10">
+          <label class="block space-y-1 mb-2">
+            <span class="text-sm block font-medium">{{ t('editor.field.layoutMode.label') }}</span>
+            <select
+              :value="draft.layout.mode ?? 'grid'"
+              :class="inputClass"
+              @change="setLayoutMode(($event.target as HTMLSelectElement).value as 'grid' | 'vertical')"
+            >
+              <option value="grid">{{ t('editor.field.layoutMode.grid') }}</option>
+              <option value="vertical">{{ t('editor.field.layoutMode.vertical') }}</option>
+            </select>
+          </label>
+        </div>
+
+        <div v-if="(draft.layout.mode ?? 'grid') === 'grid'" class="pt-1 border-t border-fg/10">
           <span class="text-sm block mb-2 font-medium">{{ t('editor.field.gridColumns') }}</span>
           <div class="grid grid-cols-2 gap-2">
             <label v-for="key in gridKeys" :key="key" class="block space-y-1">
@@ -339,6 +353,7 @@ const {
   clearSelection,
   setGroupTitle,
   setGridValue,
+  setLayoutMode,
   removeGroup,
   duplicateService,
   removeService,

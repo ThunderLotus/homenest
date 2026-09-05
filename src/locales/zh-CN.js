@@ -180,6 +180,11 @@ export default {
         xlarge: '宽屏',
       },
       gridColumns: '网格列数',
+      layoutMode: {
+        label: '布局模式',
+        grid: '网格',
+        vertical: '纵向列表',
+      },
       icon: '图标',
       iconName: '图标名称',
       iconUrl: '图标链接',

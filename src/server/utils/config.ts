@@ -175,6 +175,7 @@ export function getDefaultConfig(): CompleteConfig {
     theme: 'system',
     checkUpdates: true,
     layout: {
+      mode: 'grid',
       grid: {
         small: 2,
         medium: 2,

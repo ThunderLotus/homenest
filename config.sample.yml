@@ -5,6 +5,7 @@ baseLang: zh
 theme: bluer
 checkUpdates: false
 layout:
+  mode: grid
   grid:
     small: 2
     medium: 2

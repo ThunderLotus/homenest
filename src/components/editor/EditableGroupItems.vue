@@ -20,6 +20,7 @@ import { useDraggable } from 'vue-draggable-plus'
 export interface Props {
   items: Service[]
   grid: Layout['grid']
+  layoutMode?: 'grid' | 'vertical'
   groupKey?: string
   cardStyle?: StyleCard
 }
@@ -57,17 +58,22 @@ useDraggable(listEl, editItems, {
 
 const gridGapStyle = computed(() => (props.cardStyle?.gap ? { gap: props.cardStyle.gap } : undefined))
 
-const gridClasses = computed(() => [
-  'grid',
-  'grid-cols-1',
-  `sm:grid-cols-${props.grid.small}`,
-  `md:grid-cols-${props.grid.medium}`,
-  `lg:grid-cols-${props.grid.large}`,
-  `xl:grid-cols-${props.grid.xlarge}`,
-  'gap-1',
-  'lg:gap-2',
-  'lg:gap-y-4',
-])
+const gridClasses = computed(() => {
+  if (props.layoutMode === 'vertical') {
+    return ['flex', 'flex-col', 'gap-1', 'lg:gap-2']
+  }
+  return [
+    'grid',
+    'grid-cols-1',
+    `sm:grid-cols-${props.grid.small}`,
+    `md:grid-cols-${props.grid.medium}`,
+    `lg:grid-cols-${props.grid.large}`,
+    `xl:grid-cols-${props.grid.xlarge}`,
+    'gap-1',
+    'lg:gap-2',
+    'lg:gap-y-4',
+  ]
+})
 
 const isSelected = (item: Service) => editor.selectedService.value?.id === item.id
 

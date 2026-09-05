@@ -180,6 +180,11 @@ export default {
         xlarge: 'Wide',
       },
       gridColumns: 'Grid columns',
+      layoutMode: {
+        label: 'Layout mode',
+        grid: 'Grid',
+        vertical: 'Vertical list',
+      },
       icon: 'Icon',
       iconName: 'Icon name',
       iconUrl: 'Icon URL',

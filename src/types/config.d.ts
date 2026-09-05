@@ -16,6 +16,7 @@ export interface Behaviour {
 }
 
 export interface Layout {
+  mode?: 'grid' | 'vertical'
   grid: {
     small: number
     medium: number

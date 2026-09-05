@@ -25,6 +25,7 @@
       v-if="edit && groupKey && !groupCollapsed"
       :items="items"
       :grid="grid"
+      :layout-mode="layoutMode"
       :group-key="groupKey"
       :card-style="cardStyle"
     />
@@ -45,6 +46,7 @@ export interface Props {
   title?: string
   items: Service[]
   grid: Layout['grid']
+  layoutMode?: 'grid' | 'vertical'
   edit?: boolean
   groupKey?: string
 }
@@ -103,17 +105,22 @@ const cardStyle = computed<StyleCard>(() => defu({}, groupOverride.value?.card, 
 
 const gridGapStyle = computed(() => (cardStyle.value.gap ? { gap: cardStyle.value.gap } : undefined))
 
-const gridClasses = computed(() => [
-  'grid',
-  'grid-cols-1',
-  `sm:grid-cols-${props.grid.small}`,
-  `md:grid-cols-${props.grid.medium}`,
-  `lg:grid-cols-${props.grid.large}`,
-  `xl:grid-cols-${props.grid.xlarge}`,
-  'gap-1',
-  'lg:gap-2',
-  'lg:gap-y-4',
-])
+const gridClasses = computed(() => {
+  if (props.layoutMode === 'vertical') {
+    return ['flex', 'flex-col', 'gap-1', 'lg:gap-2']
+  }
+  return [
+    'grid',
+    'grid-cols-1',
+    `sm:grid-cols-${props.grid.small}`,
+    `md:grid-cols-${props.grid.medium}`,
+    `lg:grid-cols-${props.grid.large}`,
+    `xl:grid-cols-${props.grid.xlarge}`,
+    'gap-1',
+    'lg:gap-2',
+    'lg:gap-y-4',
+  ]
+})
 
 const isSelectedGroup = computed(
   () => editor.selected.value?.kind === 'group' && editor.selected.value.key === props.groupKey,

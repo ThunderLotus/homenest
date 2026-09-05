@@ -16,7 +16,7 @@
     <Group
       v-for="(group, key) in $services"
       :key="key"
-      v-bind="{ ...group, grid: $settings.layout.grid }"
+      v-bind="{ ...group, grid: $settings.layout.grid, layoutMode: $settings.layout.mode }"
     />
   </template>
   <Update v-if="$settings.checkUpdates" />
